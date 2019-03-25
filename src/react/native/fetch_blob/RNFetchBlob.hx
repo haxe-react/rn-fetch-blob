@@ -16,7 +16,17 @@ import haxe.Constraints;
 	static var wrap:Wrap;
 	static var polyfill:Polyfill;
 	static var JSONStream:JSONStream;
-	static var dirs:{
+
+	static function config(opt:{}):{fetch:Fetch};
+}
+
+typedef Fetch = String->String->?DynamicAccess<String>->?Dynamic->StatefulPromise<RNFBResponse>;
+extern class Base64 {}
+extern class Android {}
+extern class Ios {}
+extern class Session {}
+extern class Fs {
+	var dirs:{
 		DocumentDir:String,
 		CacheDir:String,
 		MainBundleDir:String,
@@ -28,16 +38,7 @@ import haxe.Constraints;
 		RingtoneDir:String,
 		SDCardDir:String,
 	};
-
-	static function config(opt:{}):{fetch:Fetch};
-}
-
-typedef Fetch = String->String->?DynamicAccess<String>->?Dynamic->StatefulPromise<RNFBResponse>;
-extern class Base64 {}
-extern class Android {}
-extern class Ios {}
-extern class Session {}
-extern class Fs {
+	
 	@:overload(function(path:String, encoding:String, bufferSize:Int, interval:Int):Promise<RNFBReadStream> {})
 	@:overload(function(path:String, encoding:String, bufferSize:Int):Promise<RNFBReadStream> {})
 	function readStream(path:String, encoding:String):Promise<RNFBReadStream>;
